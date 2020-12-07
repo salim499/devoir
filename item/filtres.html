@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <style>
+        #menu-deroulant, #menu-deroulant ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #menu-deroulant {
+        /* on centre le menu dans la page */
+            text-align: center;
+        }
+        #menu-deroulant li {
+        /* on place les liens du menu horizontalement */
+            display: inline-block;
+        }
+        #menu-deroulant ul li {
+        /* on enlève ce comportement pour les liens du sous menu */
+            display: inherit;
+        }
+        #menu-deroulant a {
+            text-decoration: none;
+            display: block;
+            color:#000;
+        }
+        #menu-deroulant ul {
+            position: absolute;
+        /* on cache les sous menus complètement sur la gauche */
+            left: -999em;
+            text-align: left;
+            z-index: 1000;
+        }
+        #menu-deroulant li:hover ul {
+        /* Au survol des li du menu on replace les sous menus */
+            left: auto;
+        }
+        </style>
+</head>
+<body>
+    <ul id="menu-deroulant">
+        <li><a href="#">Liste des vocabulaires</a>
+            <ul class="ul">
+
+            </ul>
+        </li>
+    </ul>  
+    <div class="space">
+
+    </div>
+</body>
+<script>
+
+function showItems(data){
+    let dom=document.getElementsByClassName("space")[0]
+    dom.innerHTML=""
+     data.forEach(e=>{
+         console.log(e)
+         console.log(e['o:id'])
+         console.log(e['o:title'])
+         console.log(e['o:media'][0]['@id'])
+    let dom=document.getElementsByClassName("space")[0]
+    dom.innerHTML=dom.innerHTML+
+    `
+    <div class="card" style={{width: "400px;"}}>
+        <img src="${e['o:media'][0]['@id']}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Title : ${e['o:title']}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="#" class="card-link">
+            Id : ${e['o:id']}
+          </a>
+            </li>
+            <li class="list-group-item">
+            <a href="#" class="card-link">
+            Media : ${e['o:media'][0]['@id']}
+          </a>
+            </li>
+          <li class="list-group-item">
+            <a href="#" class="card-link">
+            </a>
+            </li>
+        </ul>
+      </div>
+
+    `
+     })
+}
+
+function showFiltreItems(el){
+    let liste=listeItems.filter(e=>e['dcterms:subject'][0]['@value']==el)
+    showItems(liste)
+}
+
+let listeItems=[]
+
+async function showSujets(){
+let linkApi = "https://polemika.univ-paris8.fr/omk/api/items?item_set_id=2";
+
+
+let data= await fetch(linkApi)
+
+dataJson=await data.json()
+
+let sujet=[]
+
+dataJson.forEach(element => {
+    if (sujet.includes(element['dcterms:subject'][0]['@value'])){
+
+    }else {
+          sujet.push(element['dcterms:subject'][0]['@value'])
+    }
+listeItems.push(element)
+});
+showItems(listeItems)
+let dom=document.getElementsByClassName("ul")[0]
+    dom.innerHTML=""
+sujet.forEach(e=>{
+    let dom=document.getElementsByClassName("ul")[0]
+    dom.innerHTML=dom.innerHTML+
+    `
+    <button name=${e} onclick="showFiltreItems(name)">${e}</button>
+    `
+})
+}
+showSujets()
+</script>
+</html>
+
+
