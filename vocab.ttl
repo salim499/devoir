@@ -1,0 +1,32 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf.scema#/> .
+
+@prefix news: <http://linkedscience.org/news/ns#>
+
+@prefix owl: <http://www.w3.org/2002/07/owl#>
+
+@prefix <https:://evaluernews.univ-pari8.fr/nwsp8#> .
+
+<https:://evaluernews.univ-pari8.fr/nwsp8#> a owl:Ontology ;
+    dcterms:title "Evaluer les information" .
+
+
+nwsp8:utiles a rdfs:Class ;
+    rdfs:label "utiles" ;
+    rdfs:domain o:Resource ;
+    vs:term_status "experimental" .
+
+nwsp8:contenu a rdf:Property;
+    rdfs:label "contenu" ;
+    rdfs:domaine o:Ressource;
+    vs:term_status "experimental" .
+
+nwsp8:theme a rdf:Property;
+    rdfs:label "theme" ;
+    rdfs:domaine o:Ressource;
+    vs:term_status "experimental" .
+
+nwsp8:categorie a rdf:Property;
+    rdfs:label "categorie" ;
+    rdfs:domaine o:Ressource;
+    owl:sameAs news:categorie
+    vs:term_status "experimental" .
