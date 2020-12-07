@@ -3,9 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Items</title>
 </head>
 <body>
     <h1>items</h1>
+    <div class="space">
+
+    </div>
 </body>
 </html>
+<script>
+
+async function getData(){
+let linkApi = "https://polemika.univ-paris8.fr/omk/api/items?item_set_id=2";
+
+
+let data= await fetch(linkApi)
+
+dataJson=await data.json()
+
+
+showItems(dataJson)
+}
+
+function showItems(data){
+     data.forEach(e=>{
+         console.log(e['o:id'])
+         console.log(e['o:title'])
+         console.log(e['o:media'][0]['@id'])
+    let dom=document.getElementsByClassName("space")[0]
+    dom.innerHTML=dom.innerHTML+
+    `
+    <div class="card" style={{width: "400px;"}}>
+        <img src="${e['o:media'][0]['@id']}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Title : ${e['o:title']}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="#" class="card-link">
+            Id : ${e['o:id']}
+          </a>
+            </li>
+            <li class="list-group-item">
+            <a href="#" class="card-link">
+            Media : ${e['o:media'][0]['@id']}
+          </a>
+            </li>
+          <li class="list-group-item">
+            <a href="#" class="card-link">
+            </a>
+            </li>
+        </ul>
+      </div>
+
+    `
+     })
+}
+
+getData()
+</script>
