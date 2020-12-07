@@ -1,12 +1,20 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
 @prefix rdfs: <http://www.w3.org/2000/01/rdf.scema#/> .
 
-@prefix news: <http://linkedscience.org/news/ns#>
+@prefix news: <http://linkedscience.org/news/ns#> .
 
-@prefix owl: <http://www.w3.org/2002/07/owl#>
+@prefix o: <http://omeka.org/s/vocabs/o#> .
 
-@prefix <https:://evaluernews.univ-pari8.fr/nwsp8#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 
-<https:://evaluernews.univ-pari8.fr/nwsp8#> a owl:Ontology ;
+@prefix owl: <http://www.w3.org/2002/06/owl#> .
+
+@prefix vs: <http://www.w3.org/2002/07/sw-vocab-status/ns#> .
+
+@prefix nwsp8: <https://evaluernews.univ-pari8.fr/nwsp8#> .
+
+<https://evaluernews.univ-pari8.fr/nwsp8#> a owl:Ontology ;
     dcterms:title "Evaluer les information" .
 
 
@@ -28,5 +36,7 @@ nwsp8:theme a rdf:Property;
 nwsp8:categorie a rdf:Property;
     rdfs:label "categorie" ;
     rdfs:domaine o:Ressource;
-    owl:sameAs news:categorie
+    owl:sameAs news:categorie;
     vs:term_status "experimental" .
+
+
